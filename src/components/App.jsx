@@ -17,7 +17,10 @@ function App() {
             <h1>Welcome back! {userData.username}</h1> <button onClick={logout}>Log out!</button>
           </div>
         ) : (
-          <Link to="/login">Log In here!</Link>
+          <div>
+            <Link to="/login">Log In here!</Link>
+            <Link to="/register">Register here!</Link>
+          </div>
         )}
       </header>
       {userData ? (
@@ -41,7 +44,7 @@ function App() {
         )
       ) : (
         <h1>
-          No posts available. Try <Link to="/login">logging in</Link>
+          No posts available. Try <Link to="/login">logging in</Link> or <Link to="/register">creating an account</Link>
         </h1>
       )}
       <Outlet />
