@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import ErrorPage from "./ErrorPage/ErrorPage";
-import Posts from "./Posts";
 import Login from "./Login";
 
 function Routes() {
@@ -10,7 +9,8 @@ function Routes() {
       path: "/",
       element: <App />,
       children: [
-        { path: "posts", element: <Posts /> },
+        // { index: true, element: <Navigate to="posts" replace /> },
+        // { path: "posts", element: <Posts /> },
         { path: "login", element: <Login /> },
       ],
       errorElement: <ErrorPage />,
