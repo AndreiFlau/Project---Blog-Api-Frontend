@@ -28,10 +28,10 @@ function useFetchPosts() {
 
             const formattedPosts = {
               id: post.id,
-              title: "Hey",
-              content: "hello!",
-              date: "2024-08-21T02:34:57.634Z",
-              userId: 42,
+              title: post.title,
+              content: post.content,
+              date: post.date,
+              userId: post.userId,
               author: userJson.username,
             };
 
