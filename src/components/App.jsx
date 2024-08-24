@@ -2,6 +2,7 @@ import useAuth from "../hooks/useAuth";
 import useFetchPosts from "../hooks/useFetchPosts";
 import "../styles/App.css";
 import { Link, Outlet } from "react-router-dom";
+import Comments from "./Comments";
 
 function App() {
   const { userData, logout } = useAuth();
@@ -37,6 +38,8 @@ function App() {
                   <h2>{post.title}</h2>
                   <p>{post.content}</p>
                   <p>{Date(post.date)}</p>
+                  <p>By: {post.author}</p>
+                  <Comments postId={post.id} />
                 </li>
               ))}
             </ul>

@@ -18,7 +18,28 @@ function useFetchPosts() {
 
         const resJson = await result.json();
 
-        setPosts(resJson);
+        const postArray = await Promise.all(
+          resJson.map(async (post) => {
+            const userResult = await fetch(`http://localhost:8080/api/users/${post.userId}`, {
+              headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+            });
+
+            const userJson = await userResult.json();
+
+            const formattedPosts = {
+              id: post.id,
+              title: "Hey",
+              content: "hello!",
+              date: "2024-08-21T02:34:57.634Z",
+              userId: 42,
+              author: userJson.username,
+            };
+
+            return formattedPosts;
+          })
+        );
+
+        setPosts(postArray);
       } catch (error) {
         console.log(`Failed to fetch posts: `, error);
         setError(error);
