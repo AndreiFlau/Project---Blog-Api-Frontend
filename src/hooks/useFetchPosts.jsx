@@ -32,6 +32,7 @@ function useFetchPosts() {
               content: post.content,
               date: post.date,
               userId: post.userId,
+              published: post.published,
               author: userJson.username,
             };
 

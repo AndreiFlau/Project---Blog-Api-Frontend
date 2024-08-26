@@ -34,15 +34,20 @@ function App() {
           <div className="posts">
             <h1>Posts</h1>
             <ul>
-              {posts.map((post) => (
-                <li key={post.id}>
-                  <h2>{post.title}</h2>
-                  <p>{post.content}</p>
-                  <p>{formatDate(post.date)}</p>
-                  <p>By: {post.author}</p>
-                  <Comments postId={post.id} />
-                </li>
-              ))}
+              {posts.map(
+                (post) =>
+                  post.published && (
+                    <li key={post.id}>
+                      <div>
+                        <h2>{post.title}</h2>
+                        <p>{post.content}</p>
+                        <p>{formatDate(post.date)}</p>
+                        <p>By: {post.author}</p>
+                        <Comments postId={post.id} />
+                      </div>
+                    </li>
+                  )
+              )}
             </ul>
           </div>
         )
