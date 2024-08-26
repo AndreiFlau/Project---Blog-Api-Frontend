@@ -3,6 +3,7 @@ import useFetchPosts from "../hooks/useFetchPosts";
 import "../styles/App.css";
 import { Link, Outlet } from "react-router-dom";
 import Comments from "./Comments";
+import formatDate from "../formatDate";
 
 function App() {
   const { userData, logout } = useAuth();
@@ -37,7 +38,7 @@ function App() {
                 <li key={post.id}>
                   <h2>{post.title}</h2>
                   <p>{post.content}</p>
-                  <p>{Date(post.date)}</p>
+                  <p>{formatDate(post.date)}</p>
                   <p>By: {post.author}</p>
                   <Comments postId={post.id} />
                 </li>

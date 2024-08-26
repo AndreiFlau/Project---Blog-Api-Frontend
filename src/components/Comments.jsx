@@ -1,8 +1,33 @@
+import { useState } from "react";
 import useFetchCommentsByPost from "../hooks/useFetchCommentsByPost";
 import PropTypes from "prop-types";
+import useWriteComment from "../hooks/useWriteComment";
+import formatDate from "../formatDate";
 
 function Comments({ postId }) {
   const { comments, user, error, loading } = useFetchCommentsByPost(postId);
+  const { writeComment } = useWriteComment();
+  const [writeCommentToggle, setWriteCommentToggle] = useState(false);
+  const [commentContent, setCommentContent] = useState("");
+
+  function writeCommentToggleFunc() {
+    setWriteCommentToggle(true);
+  }
+
+  async function handleCommentSubmit(e) {
+    e.preventDefault();
+    await writeComment(commentContent, postId);
+    setWriteCommentToggle(false);
+
+    const newComment = {
+      id: comments.length + 1,
+      content: commentContent,
+      date: Date.now(),
+    };
+
+    comments.push(newComment);
+    setCommentContent("");
+  }
 
   if (loading) {
     return (
@@ -36,11 +61,25 @@ function Comments({ postId }) {
           {comments.map((comment) => (
             <li key={comment.id}>
               <p>{comment.content}</p>
-              <p>On: {Date(comment.date)}</p>
+              <p>On: {formatDate(comment.date)}</p>
               <p>By: {user.username}</p>
             </li>
           ))}
         </ul>
+        <button onClick={writeCommentToggleFunc}>Leave a comment:</button>
+        {writeCommentToggle && (
+          <form onSubmit={handleCommentSubmit}>
+            <label htmlFor="commentcontent">Content:</label>
+            <textarea
+              name="commentcontent"
+              id="commentcontent"
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)}
+              required
+            ></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        )}
       </div>
     </>
   );
