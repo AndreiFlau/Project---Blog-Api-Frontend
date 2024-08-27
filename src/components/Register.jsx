@@ -54,7 +54,7 @@ function Register() {
           required
         />
         <label htmlFor="author">Author? </label>
-        <input type="checkbox" id="isauthro" name="isauthor" checked={isAuthor} onChange={(e) => setIsAuthor(e.target.checked)} />
+        <input type="checkbox" id="isauthor" name="isauthor" checked={isAuthor} onChange={(e) => setIsAuthor(e.target.checked)} />
         <button type="submit">Register</button>
       </form>
     </>

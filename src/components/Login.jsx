@@ -17,8 +17,17 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await login(username, password);
-    navigate("/");
+    try {
+      const result = await login(username, password);
+
+      if (result.success) {
+        navigate("/");
+      } else {
+        console.log(result.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   return (

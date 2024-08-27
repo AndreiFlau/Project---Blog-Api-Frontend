@@ -19,7 +19,7 @@ function useWriteComment() {
         throw new Error("Network response was not ok");
       }
     } catch (error) {
-      console.log(`Failed to register user: `, error);
+      console.log(`Failed to post comment: `, error);
       setError(error);
     }
   }
