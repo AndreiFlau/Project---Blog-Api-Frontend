@@ -37,35 +37,22 @@ function Comments({ postId }) {
     );
   }
 
-  if (error) {
-    return (
-      <div>
-        <h4>Oops... couldn&apos;t fetch the comments: {error.message}</h4>
-      </div>
-    );
-  }
-
-  if (comments.length === 0) {
-    return (
-      <div>
-        <h1>There are no comments</h1>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="comments">
         <h4>Comments</h4>
-        <ul>
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <p>{comment.content}</p>
-              <p>On: {formatDate(comment.date)}</p>
-              <p>By: {user.username}</p>
-            </li>
-          ))}
-        </ul>
+        {!error || !comments.length === 0}
+        {
+          <ul>
+            {comments.map((comment) => (
+              <li key={comment.id}>
+                <p>{comment.content}</p>
+                <p>On: {formatDate(comment.date)}</p>
+                <p>By: {user.username}</p>
+              </li>
+            ))}
+          </ul>
+        }
         <button onClick={writeCommentToggleFunc}>Leave a comment:</button>
         {writeCommentToggle && (
           <form onSubmit={handleCommentSubmit}>

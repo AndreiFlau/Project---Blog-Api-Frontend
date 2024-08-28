@@ -4,6 +4,7 @@ import "../styles/App.css";
 import { Link, Outlet } from "react-router-dom";
 import Comments from "./Comments";
 import formatDate from "../formatDate";
+import sanitizeContent from "../sanitizeHtml";
 
 function App() {
   const { userData, logout } = useAuth();
@@ -40,7 +41,7 @@ function App() {
                     <li key={post.id}>
                       <div>
                         <h2>{post.title}</h2>
-                        <p>{post.content}</p>
+                        <div dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content) }} />
                         <p>{formatDate(post.date)}</p>
                         <p>By: {post.author}</p>
                         <Comments postId={post.id} />
