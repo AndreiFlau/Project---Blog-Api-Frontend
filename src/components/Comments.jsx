@@ -11,7 +11,7 @@ function Comments({ postId }) {
   const [commentContent, setCommentContent] = useState("");
 
   function writeCommentToggleFunc() {
-    setWriteCommentToggle(true);
+    setWriteCommentToggle(!writeCommentToggle);
   }
 
   async function handleCommentSubmit(e) {

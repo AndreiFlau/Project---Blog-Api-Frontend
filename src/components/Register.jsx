@@ -31,8 +31,8 @@ function Register() {
   return (
     <>
       {error && <h1>{error.message}</h1>}
-      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
+        <h1>Register</h1>
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <label htmlFor="username">Username:</label>

@@ -8,7 +8,7 @@ import sanitizeContent from "../sanitizeHtml";
 
 function App() {
   const { userData, logout } = useAuth();
-  const { posts, loading, error } = useFetchPosts();
+  const { posts, loading, error } = useFetchPosts(userData);
   console.log(userData);
 
   return (
@@ -30,7 +30,9 @@ function App() {
         loading ? (
           <h1>Loading...</h1>
         ) : error ? (
-          <h1>Oops... something happened: {error.message}</h1>
+          <div>
+            <h1>Oops... something happened: {error.message}</h1>
+          </div>
         ) : (
           <div className="posts">
             <h1>Posts</h1>
