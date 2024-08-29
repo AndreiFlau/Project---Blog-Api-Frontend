@@ -56,7 +56,7 @@ function Comments({ postId }) {
         <button onClick={writeCommentToggleFunc}>Leave a comment:</button>
         {writeCommentToggle && (
           <form onSubmit={handleCommentSubmit}>
-            <label htmlFor="commentcontent">Content:</label>
+            <label htmlFor="commentcontent">Your comment:</label>
             <textarea
               name="commentcontent"
               id="commentcontent"

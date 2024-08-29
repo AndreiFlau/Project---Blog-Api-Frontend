@@ -20,7 +20,7 @@ function App() {
             <h1>Welcome back! {userData.username}</h1> <button onClick={logout}>Log out!</button>
           </div>
         ) : (
-          <div>
+          <div className="login">
             <Link to="/login">Log In here!</Link>
             <Link to="/register">Register here!</Link>
           </div>
