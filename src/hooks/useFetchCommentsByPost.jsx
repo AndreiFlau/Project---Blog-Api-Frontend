@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function useFetchCommentsByPost(postId) {
   const [comments, setComments] = useState([]);
@@ -9,7 +10,7 @@ function useFetchCommentsByPost(postId) {
   useEffect(() => {
     async function fetchComments() {
       try {
-        const result = await fetch(`http://localhost:8080/api/posts/${postId}/comments`, {
+        const result = await fetch(`${API_URL}/api/posts/${postId}/comments`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 
@@ -19,7 +20,7 @@ function useFetchCommentsByPost(postId) {
 
         const resJson = await result.json();
 
-        const userResult = await fetch(`http://localhost:8080/api/users/${resJson[0].userId}`, {
+        const userResult = await fetch(`${API_URL}/api/users/${resJson[0].userId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 

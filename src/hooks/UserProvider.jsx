@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import PropTypes from "prop-types";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 export function UserProvider({ children }) {
   const [userData, setUserData] = useState(null);
@@ -16,7 +17,7 @@ export function UserProvider({ children }) {
 
   async function login(username, password) {
     try {
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

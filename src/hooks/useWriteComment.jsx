@@ -1,11 +1,12 @@
 import { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function useWriteComment() {
   const [error, setError] = useState(null);
 
   async function writeComment(content, postId) {
     try {
-      const result = await fetch(`http://localhost:8080/api/posts/${postId}/comments`, {
+      const result = await fetch(`${API_URL}/api/posts/${postId}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
