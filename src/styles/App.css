@@ -115,3 +115,9 @@ a:hover {
   align-items: center;
   gap: 15px;
 }
+
+.comments ul {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
