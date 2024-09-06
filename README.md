@@ -1,7 +1,18 @@
 # Blog Dashboard
 
-This is the dashboard part of my blog api project.
+This is the user frontend part of my blog api project.
 Check out the backend [here](https://github.com/AndreiFlau/Project---Blog-Api-Backend) and the dashboard frontend [here](https://github.com/AndreiFlau/Project---Blog-Api-Dashboard).
+
+![blogimg](blogimg.png)
+
+## Installation
+
+After cloning and starting the [backend server](https://github.com/AndreiFlau/Project---Blog-Api-Backend), clone this repo and run the commands below on the project's directory to run it.
+
+```powershell
+  npm install
+  npm run dev
+```
 
 # Credits
 
