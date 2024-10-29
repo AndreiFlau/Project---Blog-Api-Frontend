@@ -1,11 +1,14 @@
 import { useState } from "react";
-import useFetchCommentsByPost from "../hooks/useFetchCommentsByPost";
+// import useFetchCommentsByPost from "../hooks/useFetchCommentsByPost";
 import PropTypes from "prop-types";
 import useWriteComment from "../hooks/useWriteComment";
 import formatDate from "../formatDate";
+import { useLoaderData } from "react-router-dom";
 
 function Comments({ postId }) {
-  const { comments, user, error, loading } = useFetchCommentsByPost(postId);
+  // const { comments, user, error, loading } = useFetchCommentsByPost(postId);
+  const data = useLoaderData();
+  const comments = data.comments;
   const { writeComment } = useWriteComment();
   const [writeCommentToggle, setWriteCommentToggle] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -29,26 +32,18 @@ function Comments({ postId }) {
     setCommentContent("");
   }
 
-  if (loading) {
-    return (
-      <div>
-        <h4>Loading comments...</h4>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="comments">
         <h4>Comments</h4>
-        {!error || !comments.length === 0}
+        {!comments.length === 0}
         {
           <ul>
             {comments.map((comment) => (
-              <li key={comment.id}>
-                <p>{comment.content}</p>
-                <p>On: {formatDate(comment.date)}</p>
-                <p>By: {user.username}</p>
+              <li key={comment.content.id}>
+                <p>{comment.content.content}</p>
+                <p>On: {formatDate(comment.content.date)}</p>
+                <p>By: {comments.author.username}</p>
               </li>
             ))}
           </ul>
