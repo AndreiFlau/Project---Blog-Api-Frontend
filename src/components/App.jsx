@@ -2,9 +2,7 @@ import useAuth from "../hooks/useAuth";
 import useFetchPosts from "../hooks/useFetchPosts";
 import "../styles/App.css";
 import { Link, Outlet } from "react-router-dom";
-import Comments from "./Comments";
 import formatDate from "../formatDate";
-import sanitizeContent from "../sanitizeHtml";
 import { useState } from "react";
 
 function App() {

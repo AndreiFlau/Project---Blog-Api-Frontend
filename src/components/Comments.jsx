@@ -8,7 +8,10 @@ import { useLoaderData } from "react-router-dom";
 function Comments({ postId }) {
   // const { comments, user, error, loading } = useFetchCommentsByPost(postId);
   const data = useLoaderData();
-  const comments = data.comments;
+  let comments;
+  if (data.comments) {
+    comments = data.comments;
+  }
   const { writeComment } = useWriteComment();
   const [writeCommentToggle, setWriteCommentToggle] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -36,18 +39,19 @@ function Comments({ postId }) {
     <>
       <div className="comments">
         <h4>Comments</h4>
-        {!comments.length === 0}
-        {
+        {data.comments ? (
           <ul>
             {comments.map((comment) => (
-              <li key={comment.content.id}>
-                <p>{comment.content.content}</p>
-                <p>On: {formatDate(comment.content.date)}</p>
-                <p>By: {comments.author.username}</p>
+              <li key={comment.id}>
+                <p>{comment.content}</p>
+                <p>On: {formatDate(comment.date)}</p>
+                <p>By: {comment.author}</p>
               </li>
             ))}
           </ul>
-        }
+        ) : (
+          <p>There are no comments :(</p>
+        )}
         <button onClick={writeCommentToggleFunc}>Leave a comment:</button>
         {writeCommentToggle && (
           <form onSubmit={handleCommentSubmit}>

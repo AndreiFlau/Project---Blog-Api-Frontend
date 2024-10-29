@@ -32,45 +32,49 @@ async function postLoader({ params }) {
     if (!result.ok) {
       throw new Error("Network response was not ok");
     }
-
     const commentsJson = await commentsResult.json();
+    if (!commentsJson.error) {
+      const formattedComments = await Promise.all(
+        commentsJson.map(async (comment) => {
+          const userResult = await fetch(`${API_URL}/api/users/${comment.userId}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          });
 
-    const formattedComments = await Promise.all(
-      commentsJson.map(async (comment) => {
-        const userResult = await fetch(`${API_URL}/api/users/${comment.userId}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+          const userJson = await userResult.json();
 
-        const userJson = await userResult.json();
+          const formatComments = {
+            content: comment.content,
+            date: comment.date,
+            id: comment.id,
+            userId: comment.userId,
+            author: userJson.username,
+          };
 
-        const formatComments = {
-          content: comment.content,
-          date: comment.date,
-          id: comment.id,
-          userId: comment.userId,
-          author: userJson.username,
-        };
-
-        return formatComments;
-      })
-    );
-
-    // const commentUserRes = await fetch(`${API_URL}/api/users/${commentsJson[0].userId}`, {
-    //   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    // });
-
-    // const commentUser = await commentUserRes.json();
-
-    return {
-      id: resJson.id,
-      title: resJson.title,
-      content: resJson.content,
-      date: resJson.date,
-      userId: resJson.userId,
-      published: resJson.published,
-      author: userJson.username,
-      comments: formattedComments,
-    };
+          return formatComments;
+        })
+      );
+      return {
+        id: resJson.id,
+        title: resJson.title,
+        content: resJson.content,
+        date: resJson.date,
+        userId: resJson.userId,
+        published: resJson.published,
+        author: userJson.username,
+        comments: formattedComments,
+      };
+    } else {
+      return {
+        id: resJson.id,
+        title: resJson.title,
+        content: resJson.content,
+        date: resJson.date,
+        userId: resJson.userId,
+        published: resJson.published,
+        author: userJson.username,
+        comments: false,
+      };
+    }
   } catch (error) {
     console.log(`Failed to fetch singular post in postLoader: `, error);
   }
