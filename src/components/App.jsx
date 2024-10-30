@@ -1,19 +1,13 @@
 import useAuth from "../hooks/useAuth";
-import useFetchPosts from "../hooks/useFetchPosts";
 import "../styles/App.css";
-import { Link, Outlet } from "react-router-dom";
-import formatDate from "../formatDate";
-import { useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import PostList from "./PostList";
 
 function App() {
   const { userData, logout } = useAuth();
-  const { posts, loading, error } = useFetchPosts(userData);
-  const [showSinglePost, setShowSinglePost] = useState(false);
+  const location = useLocation();
+  const isPostPage = location.pathname.includes("/post/");
   console.log(userData);
-
-  function showSinglePostFunc() {
-    setShowSinglePost(!showSinglePost);
-  }
 
   return (
     <>
@@ -30,46 +24,8 @@ function App() {
           </div>
         )}
       </header>
-      {userData ? (
-        loading ? (
-          <h1>Loading...</h1>
-        ) : error ? (
-          <div>
-            <h1>Oops... something happened: {error.message}</h1>
-          </div>
-        ) : (
-          <div className="posts">
-            <h1>Posts</h1>
-            {!showSinglePost && (
-              <ul>
-                {posts.map(
-                  (post) =>
-                    post.published && (
-                      <li key={post.id}>
-                        <div>
-                          <h2>
-                            <Link to={`/post/${post.id}`} onClick={showSinglePostFunc}>
-                              {post.title}
-                            </Link>
-                          </h2>
-                          {/* <div dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content) }} /> */}
-                          <p>{formatDate(post.date)}</p>
-                          <p>By: {post.author}</p>
-                          {/* <Comments postId={post.id} /> */}
-                        </div>
-                      </li>
-                    )
-                )}
-              </ul>
-            )}
-          </div>
-        )
-      ) : (
-        <h1>
-          No posts available. Try <Link to="/login">logging in</Link> or <Link to="/register">creating an account</Link>
-        </h1>
-      )}
-      <Outlet context={showSinglePostFunc} />
+      {!isPostPage && <PostList />}
+      <Outlet />
     </>
   );
 }
