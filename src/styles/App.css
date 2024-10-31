@@ -86,22 +86,17 @@ a:hover {
   color: red;
 }
 
-.posts {
+.posts h1 {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 
 .posts ul {
   display: grid;
-  /* flex-direction: column-reverse; */
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
 }
 
 .posts ul li:not(.comments li) {
-  max-width: 80vw;
-  height: 40vh;
   margin: 20px;
   box-shadow: 0px 0px 5px 0px #ff440163;
 }
@@ -123,4 +118,32 @@ a:hover {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+svg:has(.spinner) {
+  width: 70px;
+  height: 70px;
+}
+
+.spinner {
+  stroke: #FF4500;
+  transform-origin: center;
+  animation: spin 1s infinite linear;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
