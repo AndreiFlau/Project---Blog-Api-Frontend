@@ -11,14 +11,18 @@ function Post() {
 
   return (
     <>
-      <h1>{post.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content) }} />
-      <p>{formatDate(post.date)}</p>
-      <p>By: {post.author}</p>
+      <div className="post">
+        <div className="title">
+          <h1>{post.title}</h1>
+          <p>By: {post.author}</p>
+          <p>{formatDate(post.date)}</p>
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content) }} />
+        <Link to="/" onClick={showSinglePostFunc}>
+          <button>Go back</button>
+        </Link>
+      </div>
       <Comments postId={post.id} />
-      <Link to="/" onClick={showSinglePostFunc}>
-        Return
-      </Link>
     </>
   );
 }

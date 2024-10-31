@@ -48,15 +48,13 @@ function PostList() {
                 (post) =>
                   post.published && (
                     <li key={post.id}>
-                      <div>
-                        <h2>
-                          <Link to={`/post/${post.id}`} onClick={loadingWheelFunc}>
-                            {post.title}
-                          </Link>
-                        </h2>
-                        <p>{formatDate(post.date)}</p>
-                        <p>By: {post.author}</p>
-                      </div>
+                      <Link to={`/post/${post.id}`} onClick={loadingWheelFunc}>
+                        <div>
+                          <h2>{post.title}</h2>
+                          <p>{formatDate(post.date)}</p>
+                          <p>By: {post.author}</p>
+                        </div>
+                      </Link>
                     </li>
                   )
               )}

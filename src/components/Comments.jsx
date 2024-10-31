@@ -38,7 +38,7 @@ function Comments({ postId }) {
   return (
     <>
       <div className="comments">
-        <h4>Comments</h4>
+        <h1>Comments</h1>
         {data.comments ? (
           <ul>
             {comments.map((comment) => (
@@ -52,7 +52,7 @@ function Comments({ postId }) {
         ) : (
           <p>There are no comments :(</p>
         )}
-        <button onClick={writeCommentToggleFunc}>Leave a comment:</button>
+        <button onClick={writeCommentToggleFunc}>Leave a comment</button>
         {writeCommentToggle && (
           <form onSubmit={handleCommentSubmit}>
             <label htmlFor="commentcontent">Your comment:</label>
