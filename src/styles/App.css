@@ -20,6 +20,21 @@
   --border: #e5e7eb;
 }
 
+.warning {
+  color: var(--text-color);
+  text-align: center;
+}
+
+
+.login,
+.register {
+  color: var(--text-color);
+}
+
+div#root {
+  margin-bottom: 5vh;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -102,12 +117,12 @@ button:hover {
 }
 
 
-a {
+.posts a {
   text-decoration: none;
   color: var(--text-color);
 }
 
-a:visited {
+.posts a:visited {
   color: var(--text-color);
 }
 
@@ -141,14 +156,28 @@ a:visited {
 .comments {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 15px;
+  border-top: rgba(189, 189, 189, 0.705) 1px solid;
 }
 
 .comments ul {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.comments ul li {
+  margin-left: 20px;
+}
+
+.comments h1 {
+  color: var(--text-color);
+  margin-bottom: 0;
+}
+
+.comments ul {
+  margin-top: 0;
 }
 
 @keyframes spin {
@@ -192,6 +221,25 @@ svg:has(.spinner) {
   margin-top: 0;
 }
 
-.post a {
+.post a:has(button) {
   align-self: flex-start;
+  text-decoration: none;
+}
+
+.title p {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.author p {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+button:has(svg) {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

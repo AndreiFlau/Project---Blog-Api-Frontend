@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useWriteComment from "../hooks/useWriteComment";
 import formatDate from "../formatDate";
 import { useLoaderData } from "react-router-dom";
+import Icons from "../Icons/Icons";
 
 function Comments({ postId }) {
   // const { comments, user, error, loading } = useFetchCommentsByPost(postId);
@@ -33,6 +34,7 @@ function Comments({ postId }) {
 
     comments.push(newComment);
     setCommentContent("");
+    alert("Comment posted :)");
   }
 
   return (
@@ -44,18 +46,29 @@ function Comments({ postId }) {
             {comments.map((comment) => (
               <li key={comment.id}>
                 <p>{comment.content}</p>
-                <p>On: {formatDate(comment.date)}</p>
-                <p>By: {comment.author}</p>
+                <div className="author">
+                  <p>
+                    <Icons.Calendar />
+                    {formatDate(comment.date)}
+                  </p>
+                  <p>
+                    <Icons.User />
+                    By: {comment.author}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>
         ) : (
           <p>There are no comments :(</p>
         )}
-        <button onClick={writeCommentToggleFunc}>Leave a comment</button>
+        <button onClick={writeCommentToggleFunc}>
+          <Icons.MessageCircle />
+          Leave a comment
+        </button>
         {writeCommentToggle && (
           <form onSubmit={handleCommentSubmit}>
-            <label htmlFor="commentcontent">Your comment:</label>
+            <label htmlFor="commentcontent"></label>
             <textarea
               name="commentcontent"
               id="commentcontent"

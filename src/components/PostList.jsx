@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import formatDate from "../formatDate";
 import usePosts from "../hooks/usePosts";
 import { useState } from "react";
+import Icons from "../Icons/Icons";
 
 function PostList() {
   const { userData } = useAuth();
@@ -20,20 +21,7 @@ function PostList() {
       {userData ? (
         loading ? (
           <div className="loading">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-              <circle
-                className="spinner"
-                cx="25"
-                cy="25"
-                r="20"
-                fill="none"
-                stroke="#4F46E5"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeDasharray="80"
-                strokeDashoffset="60"
-              />
-            </svg>
+            <Icons.Wheel />
             <h1>Loading blog posts...</h1>
           </div>
         ) : error ? (
@@ -62,25 +50,12 @@ function PostList() {
           </div>
         ) : (
           <div className="loading">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-              <circle
-                className="spinner"
-                cx="25"
-                cy="25"
-                r="20"
-                fill="none"
-                stroke="#4F46E5"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeDasharray="80"
-                strokeDashoffset="60"
-              />
-            </svg>
+            <Icons.Wheel />
             <h1>Loading blog post...</h1>
           </div>
         )
       ) : (
-        <h1>
+        <h1 className="warning">
           No posts available. Try <Link to="/login">logging in</Link> or <Link to="/register">creating an account</Link>
         </h1>
       )}

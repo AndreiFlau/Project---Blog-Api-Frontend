@@ -19,8 +19,12 @@ function App() {
           </div>
         ) : (
           <div className="login">
-            <Link to="/login">Log In here!</Link>
-            <Link to="/register">Register here!</Link>
+            <Link to="/login">
+              <button>Log In here!</button>
+            </Link>
+            <Link to="/register">
+              <button>Register here!</button>
+            </Link>
           </div>
         )}
       </header>
