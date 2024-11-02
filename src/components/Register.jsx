@@ -12,6 +12,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthor, setIsAuthor] = useState(false);
+  const [clickedRegister, setClickedRegister] = useState(false);
 
   if (userData) {
     navigate("/");
@@ -19,11 +20,13 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setClickedRegister(true);
     await register(email, username, password, isAuthor);
     await login(username, password);
     if (!error) {
       navigate("/");
     }
+    setClickedRegister(false);
   }
 
   return (
@@ -72,7 +75,9 @@ function Register() {
             />
             <label htmlFor="isauthor">I want to be an author</label>
           </div>
-          <button type="submit">Register</button>
+          <button type="submit" disabled={clickedRegister ? true : false}>
+            Register
+          </button>
         </form>
         <div className="form-link">
           Already have an account? <Link to="/login">Log in here</Link>

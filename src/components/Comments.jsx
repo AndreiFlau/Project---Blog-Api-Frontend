@@ -1,18 +1,20 @@
-import { useState } from "react";
-// import useFetchCommentsByPost from "../hooks/useFetchCommentsByPost";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import useWriteComment from "../hooks/useWriteComment";
 import formatDate from "../formatDate";
 import { useLoaderData } from "react-router-dom";
 import Icons from "../Icons/Icons";
+import useAuth from "../hooks/useAuth";
 
 function Comments({ postId }) {
-  // const { comments, user, error, loading } = useFetchCommentsByPost(postId);
+  const { userData } = useAuth();
   const data = useLoaderData();
-  let comments;
-  if (data.comments) {
-    comments = data.comments;
-  }
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    if (Array.isArray(data?.comments)) {
+      setComments(data.comments);
+    }
+  }, [data]);
   const { writeComment } = useWriteComment();
   const [writeCommentToggle, setWriteCommentToggle] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -30,9 +32,10 @@ function Comments({ postId }) {
       id: comments.length + 1,
       content: commentContent,
       date: Date.now(),
+      author: userData.username,
     };
 
-    comments.push(newComment);
+    setComments((prevComments) => [...prevComments, newComment]);
     setCommentContent("");
     alert("Comment posted :)");
   }
@@ -41,7 +44,7 @@ function Comments({ postId }) {
     <>
       <div className="comments">
         <h1>Comments</h1>
-        {data.comments ? (
+        {comments ? (
           <ul>
             {comments.map((comment) => (
               <li key={comment.id}>

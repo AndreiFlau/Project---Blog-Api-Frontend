@@ -8,6 +8,7 @@ function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [clickedLogin, setClickedLogin] = useState(false);
 
   useEffect(() => {
     if (userData) {
@@ -18,12 +19,13 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
+      setClickedLogin(true);
       const result = await login(username, password);
-
       if (result.success) {
         navigate("/");
       } else {
         console.log(result.message);
+        setClickedLogin(false);
       }
     } catch (error) {
       console.log(error.message);
@@ -55,7 +57,9 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Log in</button>
+          <button type="submit" disabled={clickedLogin ? true : false}>
+            Log in
+          </button>
         </form>
         <div className="form-link">
           Don&apos;t have an account? <Link to="/register">Register in here</Link>
