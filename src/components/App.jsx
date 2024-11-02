@@ -1,30 +1,27 @@
 import useAuth from "../hooks/useAuth";
 import "../styles/App.css";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import PostList from "./PostList";
+import { useEffect } from "react";
 
 function App() {
   const { userData, logout } = useAuth();
   const location = useLocation();
   const isPostPage = location.pathname.includes("/post/");
-  console.log(userData);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userData) {
+      navigate("/login");
+    }
+  }, [userData, navigate]);
 
   return (
     <>
       <header>
         <h1>My Wholesome Blog</h1>
-        {userData ? (
+        {userData && (
           <div>
             <button onClick={logout}>Log out!</button>
-          </div>
-        ) : (
-          <div className="login">
-            <Link to="/login">
-              <button>Log In here!</button>
-            </Link>
-            <Link to="/register">
-              <button>Register here!</button>
-            </Link>
           </div>
         )}
       </header>

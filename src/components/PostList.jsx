@@ -18,8 +18,8 @@ function PostList() {
 
   return (
     <>
-      {userData ? (
-        loading ? (
+      {userData &&
+        (loading ? (
           <div className="loading">
             <Icons.Wheel />
             <h1>Loading blog posts...</h1>
@@ -53,12 +53,7 @@ function PostList() {
             <Icons.Wheel />
             <h1>Loading blog post...</h1>
           </div>
-        )
-      ) : (
-        <h1 className="warning">
-          No posts available. Try <Link to="/login">logging in</Link> or <Link to="/register">creating an account</Link>
-        </h1>
-      )}
+        ))}
     </>
   );
 }
