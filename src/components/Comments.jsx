@@ -1,11 +1,20 @@
-import { useState } from "react";
-import useFetchCommentsByPost from "../hooks/useFetchCommentsByPost";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import useWriteComment from "../hooks/useWriteComment";
 import formatDate from "../formatDate";
+import { useLoaderData } from "react-router-dom";
+import Icons from "../Icons/Icons";
+import useAuth from "../hooks/useAuth";
 
 function Comments({ postId }) {
-  const { comments, user, error, loading } = useFetchCommentsByPost(postId);
+  const { userData } = useAuth();
+  const data = useLoaderData();
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    if (Array.isArray(data?.comments)) {
+      setComments(data.comments);
+    }
+  }, [data]);
   const { writeComment } = useWriteComment();
   const [writeCommentToggle, setWriteCommentToggle] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -23,40 +32,46 @@ function Comments({ postId }) {
       id: comments.length + 1,
       content: commentContent,
       date: Date.now(),
+      author: userData.username,
     };
 
-    comments.push(newComment);
+    setComments((prevComments) => [...prevComments, newComment]);
     setCommentContent("");
-  }
-
-  if (loading) {
-    return (
-      <div>
-        <h4>Loading comments...</h4>
-      </div>
-    );
+    alert("Comment posted :)");
   }
 
   return (
     <>
       <div className="comments">
-        <h4>Comments</h4>
-        {!error || !comments.length === 0}
-        {
+        <h1>Comments</h1>
+        {comments ? (
           <ul>
             {comments.map((comment) => (
               <li key={comment.id}>
                 <p>{comment.content}</p>
-                <p>On: {formatDate(comment.date)}</p>
-                <p>By: {user.username}</p>
+                <div className="author">
+                  <p>
+                    <Icons.Calendar />
+                    {formatDate(comment.date)}
+                  </p>
+                  <p>
+                    <Icons.User />
+                    By: {comment.author}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>
-        }
-        <button onClick={writeCommentToggleFunc}>Leave a comment:</button>
+        ) : (
+          <p>There are no comments :(</p>
+        )}
+        <button onClick={writeCommentToggleFunc}>
+          <Icons.MessageCircle />
+          Leave a comment
+        </button>
         {writeCommentToggle && (
           <form onSubmit={handleCommentSubmit}>
-            <label htmlFor="commentcontent">Your comment:</label>
+            <label htmlFor="commentcontent"></label>
             <textarea
               name="commentcontent"
               id="commentcontent"
