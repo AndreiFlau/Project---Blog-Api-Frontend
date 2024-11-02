@@ -99,6 +99,16 @@ p {
   align-self: center;
 }
 
+@media screen and (max-width: 1200px) {
+  .card {
+    width: auto;
+  }
+}
+
+.card h1 {
+  color: var(--text-color);
+}
+
 .checkbox-group {
   display: flex;
   align-items: center;
