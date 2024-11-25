@@ -32,6 +32,22 @@ function Login() {
     }
   }
 
+  async function handleDemoLogin(e) {
+    e.preventDefault();
+    try {
+      setClickedLogin(true);
+      const result = await login("author", "123");
+      if (result.success) {
+        navigate("/");
+      } else {
+        console.log(result.message);
+        setClickedLogin(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <>
       <div className="card">
@@ -59,6 +75,9 @@ function Login() {
           />
           <button type="submit" disabled={clickedLogin ? true : false}>
             Log in
+          </button>
+          <button type="button" onClick={handleDemoLogin} disabled={clickedLogin ? true : false}>
+            Access Demo Account
           </button>
         </form>
         <div className="form-link">
